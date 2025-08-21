@@ -1,8 +1,19 @@
+"use client";
+
 import Image from "next/image";
+import { useTheme } from "../context/ThemeContext"; // Import useTheme
+import ThemeSwitcher from "../components/ThemeSwitcher"; // Import ThemeSwitcher
 
 export default function Home() {
+  const { isDarkMode, toggleDarkMode } = useTheme(); // Use the theme context
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      {/* Add ThemeSwitcher here */}
+      <div className="absolute top-4 right-4">
+        <ThemeSwitcher isDarkMode={isDarkMode} onToggle={toggleDarkMode} />
+      </div>
+
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
