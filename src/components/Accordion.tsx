@@ -1,77 +1,126 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
+// Define the props for a single Accordion item
 interface AccordionItemProps {
   title: string;
-  children: React.ReactNode;
-  isOpen?: boolean;
-  onToggle?: () => void;
+  content: React.ReactNode;
+  isOpen: boolean;
+  onClick: () => void;
 }
 
-const AccordionItem: React.FC<AccordionItemProps> = ({
-  title,
-  children,
-  isOpen: controlledIsOpen,
-  onToggle: controlledOnToggle,
-}) => {
-  const [internalIsOpen, setInternalIsOpen] = useState(false);
+// Icon component for open/close indicator
+const AccordionIcon: React.FC<{ isOpen: boolean }> = ({ isOpen }) => (
+  <svg
+    className={`w-6 h-6 transition-transform transform ${isOpen ? 'rotate-180' : ''}`}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+  </svg>
+);
 
-  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
-  const onToggle = controlledOnToggle !== undefined ? controlledOnToggle : () => setInternalIsOpen(!internalIsOpen);
+// Single Accordion Item Component
+const AccordionItem: React.FC<AccordionItemProps> = ({ title, content, isOpen, onClick }) => {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState<string | number>(0);
 
-  return (
-    <div className="border-b border-gray-200 last:border-b-0">
-      <button
-        className="flex justify-between items-center w-full py-4 px-5 text-left font-medium text-gray-800 hover:bg-gray-50 focus:outline-none"
-        onClick={onToggle}
-        aria-expanded={isOpen}
-      >
-        {title}
-        <svg
-          className={`w-5 h-5 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-        </svg>
-      </button>
-      {isOpen && <div className="px-5 pb-4 text-gray-600">{children}</div>}
-    </div>
-  );
-};
+  useEffect(() => {
+    if (contentRef.current) {
+      setHeight(isOpen ? contentRef.current.scrollHeight : 0);
+    }
+  }, [isOpen]);
 
-interface AccordionProps {
-  children: React.ReactElement<AccordionItemProps> | React.ReactElement<AccordionItemProps>[];
-  defaultOpenIndex?: number;
-  onItemToggle?: (index: number) => void;
-}
-
-const Accordion: React.FC<AccordionProps> = ({
-  children,
-  defaultOpenIndex,
-  onItemToggle,
-}) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(defaultOpenIndex ?? null);
-
-  const handleToggle = (index: number) => {
-    setOpenIndex(prevIndex => (prevIndex === index ? null : index));
-    onItemToggle?.(index);
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onClick();
+    }
   };
 
   return (
-    <div className="w-full bg-white rounded-lg shadow-md overflow-hidden">
-      {React.Children.map(children, (child, index) => {
-        if (React.isValidElement(child) && child.type === AccordionItem) {
-          return React.cloneElement(child, {
-            isOpen: openIndex === index,
-            onToggle: () => handleToggle(index),
-          });
-        }
-        return child;
-      })}
+    <div className="border-b border-gray-200 dark:border-gray-700">
+      <h2>
+        <button
+          type="button"
+          onClick={onClick}
+          onKeyDown={handleKeyDown}
+          aria-expanded={isOpen}
+          aria-controls={`accordion-content-${title.replace(/\s+/g, '-')}`}
+          className="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800"
+        >
+          <span>{title}</span>
+          <AccordionIcon isOpen={isOpen} />
+        </button>
+      </h2>
+      <div
+        ref={contentRef}
+        id={`accordion-content-${title.replace(/\s+/g, '-')}`}
+        style={{ maxHeight: height }}
+        className="overflow-hidden transition-max-height duration-300 ease-in-out"
+      >
+        <div className="p-5 text-gray-500 dark:text-gray-400">
+          {content}
+        </div>
+      </div>
     </div>
   );
 };
 
-export { Accordion, AccordionItem };
+// Define the props for the main Accordion component
+interface AccordionProps {
+  items: {
+    title: string;
+    content: React.ReactNode;
+    defaultOpen?: boolean;
+  }[];
+  allowMultipleOpen?: boolean;
+  openIndexes?: number[];
+  onToggle?: (indexes: number[]) => void;
+}
+
+// Main Accordion Component
+const Accordion: React.FC<AccordionProps> = ({ items, allowMultipleOpen = false, openIndexes, onToggle }) => {
+  const [internalOpenIndexes, setInternalOpenIndexes] = useState<number[]>(
+    items
+      .map((item, index) => (item.defaultOpen ? index : -1))
+      .filter((index) => index !== -1)
+  );
+
+  const isControlled = openIndexes !== undefined && onToggle !== undefined;
+  const currentOpenIndexes = isControlled ? openIndexes : internalOpenIndexes;
+
+  const handleToggle = (index: number) => {
+    let newOpenIndexes: number[];
+    if (allowMultipleOpen) {
+      newOpenIndexes = currentOpenIndexes.includes(index)
+        ? currentOpenIndexes.filter((i) => i !== index)
+        : [...currentOpenIndexes, index];
+    } else {
+      newOpenIndexes = currentOpenIndexes.includes(index) ? [] : [index];
+    }
+
+    if (isControlled) {
+      onToggle(newOpenIndexes);
+    } else {
+      setInternalOpenIndexes(newOpenIndexes);
+    }
+  };
+
+  return (
+    <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      {items.map((item, index) => (
+        <AccordionItem
+          key={index}
+          title={item.title}
+          content={item.content}
+          isOpen={currentOpenIndexes.includes(index)}
+          onClick={() => handleToggle(index)}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default Accordion;
