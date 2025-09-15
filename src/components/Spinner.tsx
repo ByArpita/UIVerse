@@ -9,7 +9,7 @@ interface SpinnerProps {
 const Spinner: React.FC<SpinnerProps> = ({
   type = 'ring',
   size = 'md',
-  color = 'text-primary',
+  color = 'text-blue-500', // default Tailwind blue
 }) => {
   const sizeClasses = {
     sm: 'w-4 h-4',
@@ -31,7 +31,7 @@ const Spinner: React.FC<SpinnerProps> = ({
       );
     case 'pulse':
       return (
-        <div className={`rounded-full animate-ping ${spinnerSizeClass} ${bgColorClass} bg-muted`}></div>
+        <div className={`rounded-full animate-ping ${spinnerSizeClass} ${bgColorClass}`}></div>
       );
     case 'ring':
     default:
@@ -40,12 +40,9 @@ const Spinner: React.FC<SpinnerProps> = ({
           className={`inline-block animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] ${spinnerSizeClass} ${color}`}
           role="status"
         >
-          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-            Loading...
-          </span>
+          <span className="sr-only">Loading...</span>
         </div>
       );
   }
 };
-
 export default Spinner;

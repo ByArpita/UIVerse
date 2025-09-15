@@ -12,7 +12,6 @@ import Button from '../components/Button';
 import Card from '../components/Card';
 import Carousel from '../components/Carousel';
 import Checkbox from '../components/Checkbox';
-import Chip from '../components/Chip';
 import EmptyState from '../components/EmptyState';
 import Form from '../components/Form';
 import Input from '../components/Input';
@@ -29,7 +28,101 @@ import Table from '../components/Table';
 import Tabs from '../components/Tabs';
 import Toast from '../components/Toast';
 import Tooltip from '../components/Tooltip';
+import { CheckboxGroup, HorizontalCheckboxGroup } from '../components/CheckboxGroup';
 import "./globals.css";
+
+const ModalExample = () => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="My Modal">
+        <p>This is the content of the modal.</p>
+      </Modal>
+    </>
+  );
+};
+
+const PaginationExample = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+
+  return (
+    <Pagination
+      currentPage={currentPage}
+      totalPages={10}
+      onPageChange={(page) => setCurrentPage(page)}
+    />
+  );
+};
+
+const RadioButtonGroupExample = () => {
+  const [selectedValue, setSelectedValue] = React.useState('item1');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedValue(event.target.value);
+  };
+
+  return (
+    <div className="flex flex-col space-y-2">
+      <RadioButton
+        label="Item 1"
+        value="item1"
+        name="radio-group"
+        checked={selectedValue === 'item1'}
+        onChange={handleChange}
+      />
+      <RadioButton
+        label="Item 2"
+        value="item2"
+        name="radio-group"
+        checked={selectedValue === 'item2'}
+        onChange={handleChange}
+      />
+      <RadioButton
+        label="Item 3"
+        value="item3"
+        name="radio-group"
+        checked={selectedValue === 'item3'}
+        onChange={handleChange}
+      />
+    </div>
+  );
+};
+
+const HorizontalRadioButtonGroupExample = () => {
+  const [selectedValue, setSelectedValue] = React.useState('item1');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedValue(event.target.value);
+  };
+
+  return (
+    <div className="flex space-x-4">
+      <RadioButton
+        label="Item 1"
+        value="item1"
+        name="radio-group-horizontal"
+        checked={selectedValue === 'item1'}
+        onChange={handleChange}
+      />
+      <RadioButton
+        label="Item 2"
+        value="item2"
+        name="radio-group-horizontal"
+        checked={selectedValue === 'item2'}
+        onChange={handleChange}
+      />
+      <RadioButton
+        label="Item 3"
+        value="item3"
+        name="radio-group-horizontal"
+        checked={selectedValue === 'item3'}
+        onChange={handleChange}
+      />
+    </div>
+  );
+};
 
 const components = [
   {
@@ -328,6 +421,9 @@ const components = [
       description: 'A user can select one or more options from a set.',
       props: [
         { name: 'label', type: 'string', default: '', description: 'The label for the checkbox.' },
+        { name: 'checked', type: 'boolean', default: 'false', description: 'Whether the checkbox is checked.' },
+        { name: 'onChange', type: '() => void', default: 'undefined', description: 'A callback function to be called when the checkbox is checked or unchecked.' },
+        { name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the checkbox is disabled.' },
       ],
       examples: [
         {
@@ -335,36 +431,81 @@ const components = [
           code: '<Checkbox label="Check me" />',
           component: <Checkbox label="Check me" />,
         },
-      ],
-    },
-  },
-  {
-    name: 'Chip',
-    details: {
-      description: 'A compact element that represents an input, attribute, or action.',
-      props: [
-        { name: 'children', type: 'React.ReactNode', default: 'undefined', description: 'The content of the chip.' },
-        { name: 'type', type: '\'default\' | \'primary\' | \'success\' | \'error\' | \'warning\'', default: '\'default\'', description: 'The type of chip.' },
-        { name: 'isSelectable', type: 'boolean', default: 'false', description: 'Whether the chip is selectable.' },
-        { name: 'isSelected', type: 'boolean', default: 'false', description: 'Whether the chip is selected.' },
-        { name: 'onSelectChange', type: '(selected: boolean) => void', default: 'undefined', description: 'A callback function to be called when the selection state of the chip changes.' },
-        { name: 'onClose', type: '() => void', default: 'undefined', description: 'A callback function to be called when the chip is closed.' },
-      ],
-      examples: [
         {
-          title: 'Default Chip',
-          code: '<Chip>Chip</Chip>',
-          component: <Chip>Chip</Chip>,
+          title: 'Checked Checkbox',
+          code: '<Checkbox label="Option selected" checked />',
+          component: <Checkbox label="Option selected" checked />,
         },
         {
-          title: 'Selectable Chip',
-          code: '<Chip isSelectable>Selectable Chip</Chip>',
-          component: <Chip isSelectable>Selectable Chip</Chip>,
+          title: 'Disabled Checkbox',
+          code: '<Checkbox label="Disabled option" disabled />',
+          component: <Checkbox label="Disabled option" disabled />,
         },
         {
-          title: 'Closable Chip',
-          code: '<Chip onClose={() => {}}>Closable Chip</Chip>',
-          component: <Chip onClose={() => { }}>Closable Chip</Chip>,
+          title: 'Checkbox Group',
+          code: `const [selectedItems, setSelectedItems] = useState(['item1']);
+
+          const handleCheckboxChange = (event) => {
+            const { value, checked } = event.target;
+            setSelectedItems(prev =>
+              checked ? [...prev, value] : prev.filter(item => item !== value)
+            );
+          };
+
+          <div className="flex flex-col space-y-2">
+            <Checkbox
+              label="Item 1"
+              value="item1"
+              checked={selectedItems.includes('item1')}
+              onChange={handleCheckboxChange}
+            />
+            <Checkbox
+              label="Item 2"
+              value="item2"
+              checked={selectedItems.includes('item2')}
+              onChange={handleCheckboxChange}
+            />
+            <Checkbox
+              label="Item 3"
+              value="item3"
+              checked={selectedItems.includes('item3')}
+              onChange={handleCheckboxChange}
+            />
+          </div>`,
+          component: <CheckboxGroup />,
+        },
+        {
+          title: 'Horizontal Checkbox Group',
+          code: `const [selectedItems, setSelectedItems] = useState(['item1']);
+
+          const handleCheckboxChange = (event) => {
+            const { value, checked } = event.target;
+            setSelectedItems(prev =>
+              checked ? [...prev, value] : prev.filter(item => item !== value)
+            );
+          };
+
+          <div className="flex space-x-4">
+            <Checkbox
+              label="Item 1"
+              value="item1"
+              checked={selectedItems.includes('item1')}
+              onChange={handleCheckboxChange}
+            />
+            <Checkbox
+              label="Item 2"
+              value="item2"
+              checked={selectedItems.includes('item2')}
+              onChange={handleCheckboxChange}
+            />
+            <Checkbox
+              label="Item 3"
+              value="item3"
+              checked={selectedItems.includes('item3')}
+              onChange={handleCheckboxChange}
+            />
+          </div>`,
+          component: <HorizontalCheckboxGroup />,
         },
       ],
     },
@@ -403,6 +544,35 @@ const components = [
           code: '<Form onSubmit={() => {}}><Input placeholder="Enter text"/></Form>',
           component: <Form onSubmit={() => { }}><Input placeholder="Enter text" /></Form>,
         },
+        {
+          title: 'Detailed Form',
+          code: `<Form onSubmit={() => {}}><div>
+          <label htmlFor="contactName" className="block text-sm font-medium text-gray-700">Name</label>
+          <Input type="text" id="contactName" placeholder="Your Name"/>
+        </div>
+        <div>
+          <label htmlFor="contactEmail" className="block text-sm font-medium text-gray-700">Email</label>
+          <Input type="email" id="contactEmail" placeholder="your@example.com"/>
+        </div>
+        <div>
+          <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
+          <textarea id="message" rows={4} className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Your message"></textarea>
+        </div>
+        <Button type="submit">Send Message</Button></Form>`,
+          component: <Form onSubmit={() => { }}><div>
+          <label htmlFor="contactName" className="block text-sm font-medium text-gray-700">Name</label>
+          <Input type="text" id="contactName" placeholder="Your Name"/>
+        </div>
+        <div>
+          <label htmlFor="contactEmail" className="block text-sm font-medium text-gray-700">Email</label>
+          <Input type="email" id="contactEmail" placeholder="your@example.com"/>
+        </div>
+        <div>
+          <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
+          <textarea id="message" rows={4} className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Your message"></textarea>
+        </div>
+        <Button type="submit">Send Message</Button></Form>,
+        },
       ],
     },
   },
@@ -433,8 +603,15 @@ const components = [
       examples: [
         {
           title: 'Default Modal',
-          code: '<Modal isOpen={false} onClose={() => {}}>This is a modal.</Modal>',
-          component: <Modal isOpen={false} onClose={() => { }}>This is a modal.</Modal>,
+          code: `const ModalExample = () => {\n  const [isOpen, setIsOpen] = React.useState(false);\n\n  return (\n    <>
+      <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title=\"My Modal\">
+        <p>This is the content of the modal.</p>
+      </Modal>
+    </>
+  );
+};`,
+          component: <ModalExample />,
         },
       ],
     },
@@ -451,8 +628,8 @@ const components = [
       examples: [
         {
           title: 'Default Navbar',
-          code: '<Navbar brandName="Logo" links={[{ href: \'/\\', label: 'Home\' }]} />',
-          component: <Navbar brandName="Logo" links={[{ href: '/', label: 'Home' }]} />,
+          code: '<Navbar brandName="Logo" links={[{ href: \'/\', label: \'Home\' }, { href: \'/about\', label: \'About\' }]} />',
+          component: <Navbar brandName="Logo" links={[{ href: '/', label: 'Home' }, { href: '/about', label: 'About' }]} />,
         },
       ],
     },
@@ -469,8 +646,8 @@ const components = [
       examples: [
         {
           title: 'Default Pagination',
-          code: '<Pagination currentPage={1} totalPages={10} onPageChange={() => {}} />',
-          component: <Pagination currentPage={1} totalPages={10} onPageChange={() => { }} />,
+          code: `const PaginationExample = () => {\n  const [currentPage, setCurrentPage] = React.useState(1);\n\n  return (\n    <Pagination\n      currentPage={currentPage}\n      totalPages={10}\n      onPageChange={(page) => setCurrentPage(page)}\n    />\n  );\n};`,
+          component: <PaginationExample />,
         },
       ],
     },
@@ -540,6 +717,40 @@ const components = [
           code: '<RadioButton label="Select me" />',
           component: <RadioButton label="Select me" />,
         },
+        {
+          title: 'RadioButton Group',
+          code: `const RadioButtonGroupExample = () => {\n  const [selectedValue, setSelectedValue] = React.useState('item1');\n\n  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {\n    setSelectedValue(event.target.value);\n  };\n\n  return (\n    <div className=\"flex flex-col space-y-2\">
+      <RadioButton
+        label=\"Item 1\"
+        value=\"item1\"
+        name=\"radio-group\"
+        checked={selectedValue === 'item1'}
+        onChange={handleChange}
+      />
+      <RadioButton
+        label=\"Item 2\"
+        value=\"item2\"
+        name=\"radio-group\"
+        checked={selectedValue === 'item2'}
+        onChange={handleChange}
+      />
+      <RadioButton
+        label=\"Item 3\"
+        value=\"item3\"
+        name=\"radio-group\"
+        checked={selectedValue === 'item3'}
+        onChange={handleChange}
+      />
+    </div>
+  );
+};`,
+          component: <RadioButtonGroupExample />,
+        },
+        {
+          title: 'Horizontal RadioButton Group',
+          code: `const HorizontalRadioButtonGroupExample = () => {\n  const [selectedValue, setSelectedValue] = React.useState('item1');\n\n  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {\n    setSelectedValue(event.target.value);\n  };\n\n  return (\n    <div className=\"flex space-x-4\">\n      <RadioButton\n        label=\"Item 1\"\n        value=\"item1\"\n        name=\"radio-group-horizontal\"\n        checked={selectedValue === 'item1'}\n        onChange={handleChange}\n      />\n      <RadioButton\n        label=\"Item 2\"\n        value=\"item2\"\n        name=\"radio-group-horizontal\"\n        checked={selectedValue === 'item2'}\n        onChange={handleChange}\n      />\n      <RadioButton\n        label=\"Item 3\"\n        value=\"item3\"\n        name=\"radio-group-horizontal\"\n        checked={selectedValue === 'item3'}\n        onChange={handleChange}\n      />\n    </div>\n  );\n};`,
+          component: <HorizontalRadioButtonGroupExample />,
+        },
       ],
     },
   },
@@ -549,14 +760,12 @@ const components = [
       description: 'A vertical navigation menu.',
       props: [
         { name: 'items', type: 'MenuItem[]', default: '[]', description: 'An array of menu items.' },
-        { name: 'isCollapsed', type: 'boolean', default: 'false', description: 'Whether the sidebar is collapsed.' },
-        { name: 'onToggleCollapse', type: '() => void', default: 'undefined', description: 'A callback function to be called when the sidebar is toggled.' },
       ],
       examples: [
         {
           title: 'Default SidebarMenu',
-          code: '<SidebarMenu items={[{ label: \'Home\' }]} isCollapsed={false} onToggleCollapse={() => {}} />',
-          component: <SidebarMenu items={[{ label: 'Home' }]} isCollapsed={false} onToggleCollapse={() => { }} />,
+          code: `<SidebarMenu items={[{ href: '#', label: 'Home' }, { href: '#', label: 'About' }, { href: '#', label: 'Contact' }]} />`,
+          component: <SidebarMenu items={[{ href: '#', label: 'Home' }, { href: '#', label: 'About' }, { href: '#', label: 'Contact' }]} />,
         },
       ],
     },

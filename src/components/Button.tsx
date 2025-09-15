@@ -2,7 +2,7 @@ import React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "success";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "success" | "fullwidth";
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -30,6 +30,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         break;
       case "success":
         variantClasses = "bg-green-500 text-white border-transparent hover:bg-green-600 focus:ring-green-500";
+        break;
+      case "fullwidth":
+        variantClasses = "w-full bg-blue-500 text-white border-transparent hover:bg-blue-600 focus:ring-blue-500";
         break;
     }
 

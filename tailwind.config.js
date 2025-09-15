@@ -7,7 +7,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
+  /*  theme: {
     extend: {
       colors: {
         // --- Brand ---
@@ -40,6 +40,6 @@ module.exports = {
         "2xl": "1rem",
       },
     },
-  },
+  }, */
   plugins: [],
 };

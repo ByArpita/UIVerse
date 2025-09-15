@@ -90,3 +90,39 @@ export const CheckboxGroup: Story = {
     );
   },
 };
+
+export const HorizontalCheckboxGroup: Story = {
+  render: () => {
+    const [selectedItems, setSelectedItems] = useState<string[]>(['item1']);
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value, checked } = event.target;
+      setSelectedItems(prev =>
+        checked ? [...prev, value] : prev.filter(item => item !== value)
+      );
+    };
+
+    return (
+      <div className="flex space-x-4">
+        <Checkbox
+          label="Item 1"
+          value="item1"
+          checked={selectedItems.includes('item1')}
+          onChange={handleCheckboxChange}
+        />
+        <Checkbox
+          label="Item 2"
+          value="item2"
+          checked={selectedItems.includes('item2')}
+          onChange={handleCheckboxChange}
+        />
+        <Checkbox
+          label="Item 3"
+          value="item3"
+          checked={selectedItems.includes('item3')}
+          onChange={handleCheckboxChange}
+        />
+      </div>
+    );
+  },
+};

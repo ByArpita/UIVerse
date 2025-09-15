@@ -18,12 +18,13 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   showLabel = false,
 }) => {
   const colorClasses = {
-    primary: 'bg-primary',
-    secondary: 'bg-secondary',
-    success: 'bg-accent',
-    warning: 'bg-yellow-500',
-    danger: 'bg-destructive',
-  };
+  primary: 'bg-blue-500',
+  secondary: 'bg-gray-500',
+  success: 'bg-green-500',
+  warning: 'bg-yellow-500',
+  danger: 'bg-red-500',
+};
+
 
   const bgColorClass = colorClasses[color];
   const percentage = Math.round((value / max) * 100);
@@ -31,7 +32,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   return (
     <div className="w-full">
       <div
-        className={`w-full bg-muted rounded-full ${height} overflow-hidden`}
+        className={`w-full bg-gray-200 rounded-full ${height} overflow-hidden`}
         role="progressbar"
         aria-valuenow={variant === 'determinate' ? value : undefined}
         aria-valuemin={variant === 'determinate' ? 0 : undefined}

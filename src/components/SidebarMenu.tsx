@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface MenuItem {
   label: string;
@@ -8,15 +8,17 @@ interface MenuItem {
 
 interface SidebarMenuProps {
   items: MenuItem[];
-  isCollapsed: boolean;
-  onToggleCollapse: () => void;
 }
 
 const SidebarMenu: React.FC<SidebarMenuProps> = ({
   items,
-  isCollapsed,
-  onToggleCollapse,
 }) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const onToggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
     <aside
       className={`bg-foreground text-background h-screen transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'
