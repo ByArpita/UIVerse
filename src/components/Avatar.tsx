@@ -31,7 +31,7 @@ const Avatar: React.FC<AvatarProps> = ({
 
   return (
     <div
-      className={`relative inline-flex items-center justify-center rounded-full bg-gray-300 text-white font-semibold overflow-hidden ${avatarSizeClass} ${className}`}
+      className={`relative inline-flex items-center justify-center rounded-full bg-muted text-primary-foreground font-semibold overflow-hidden ${avatarSizeClass} ${className}`}
     >
       {src && !imageError ? (
         <img
@@ -44,7 +44,7 @@ const Avatar: React.FC<AvatarProps> = ({
         <span>{initials.substring(0, 2).toUpperCase()}</span>
       ) : (
         <svg
-          className="w-2/3 h-2/3 text-gray-500"
+          className="w-2/3 h-2/3 text-muted-foreground"
           fill="currentColor"
           viewBox="0 0 24 24"
         >

@@ -20,12 +20,12 @@ const Badge: React.FC<BadgeProps> = ({
       textColorClass = 'text-blue-800';
       break;
     case 'success':
-      bgColorClass = 'bg-green-100';
-      textColorClass = 'text-green-800';
+      bgColorClass = 'bg-green-500';
+      textColorClass = 'text-white';
       break;
     case 'error':
-      bgColorClass = 'bg-red-100';
-      textColorClass = 'text-red-800';
+      bgColorClass = 'bg-red-500';
+      textColorClass = 'text-white';
       break;
     case 'warning':
       bgColorClass = 'bg-yellow-100';

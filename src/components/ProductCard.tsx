@@ -24,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <img src={imageSrc} alt={imageAlt} className="w-full h-48 object-cover rounded-t-lg" />
       <div className="p-4">
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600 mb-4 line-clamp-3" title={description}>{description}</p>
+        <p className="text-muted-foreground mb-4 line-clamp-3" title={description}>{description}</p>
         <Button onClick={onButtonClick} className="w-full">
           {buttonText}
         </Button>

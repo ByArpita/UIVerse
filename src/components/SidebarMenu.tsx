@@ -19,12 +19,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
 }) => {
   return (
     <aside
-      className={`bg-gray-800 text-white h-screen transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'
+      className={`bg-foreground text-background h-screen transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'
         } flex flex-col`}
     >
       <div className="p-4 flex items-center justify-between">
         {!isCollapsed && <h2 className="text-xl font-semibold">Menu</h2>}
-        <button onClick={onToggleCollapse} className="text-white focus:outline-none">
+        <button onClick={onToggleCollapse} className="text-background focus:outline-none">
           <svg
             className="w-6 h-6 transform transition-transform duration-300"
             fill="none"
@@ -48,7 +48,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             <li key={index}>
               <a
                 href={item.href || '#'}
-                className={`flex items-center py-3 px-4 hover:bg-gray-700 ${isCollapsed ? 'justify-center' : ''
+                className={`flex items-center py-3 px-4 hover:bg-popover ${isCollapsed ? 'justify-center' : ''
                   }`}
               >
                 {item.icon && <span className={`${isCollapsed ? '' : 'mr-3'}`}>{item.icon}</span>}

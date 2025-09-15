@@ -53,13 +53,13 @@ const Carousel: React.FC<CarouselProps> = ({
         <>
           <button
             onClick={goToPrevious}
-            className="absolute top-1/2 left-4 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full focus:outline-none"
+            className="absolute top-1/2 left-4 -translate-y-1/2 bg-foreground bg-opacity-50 text-background p-2 rounded-full focus:outline-none"
           >
             &#10094;
           </button>
           <button
             onClick={goToNext}
-            className="absolute top-1/2 right-4 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full focus:outline-none"
+            className="absolute top-1/2 right-4 -translate-y-1/2 bg-foreground bg-opacity-50 text-background p-2 rounded-full focus:outline-none"
           >
             &#10095;
           </button>
@@ -73,7 +73,7 @@ const Carousel: React.FC<CarouselProps> = ({
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-3 h-3 rounded-full ${
-                currentIndex === index ? 'bg-white' : 'bg-gray-400'
+                currentIndex === index ? 'bg-background' : 'bg-muted'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             ></button>

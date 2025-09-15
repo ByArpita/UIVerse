@@ -37,7 +37,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-400 dark:border-gray-600 rounded-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-3 py-2 leading-tight text-muted-foreground bg-background border border-border dark:border-border rounded-lg hover:bg-muted hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Previous
       </button>
@@ -48,15 +48,15 @@ const Pagination: React.FC<PaginationProps> = ({
             {typeof page === 'number' ? (
               <button
                 onClick={() => onPageChange(page)}
-                className={`px-3 py-2 leading-tight border border-gray-400 dark:border-gray-600 ${page === currentPage
-                  ? 'text-blue-600 bg-blue-50 hover:bg-blue-100 hover:text-blue-700'
-                  : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700'
+                className={`px-3 py-2 leading-tight border border-border dark:border-border ${page === currentPage
+                  ? 'text-primary bg-primary-light hover:bg-primary-light hover:text-primary-dark'
+                  : 'text-muted-foreground bg-background hover:bg-muted hover:text-foreground'
                 }`}
               >
                 {page}
               </button>
             ) : (
-              <span className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-400 dark:border-gray-600 cursor-default">
+              <span className="px-3 py-2 leading-tight text-muted-foreground bg-background border border-border dark:border-border cursor-default">
                 {page}
               </span>
             )}
@@ -67,7 +67,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-400 dark:border-gray-600 rounded-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-3 py-2 leading-tight text-muted-foreground bg-background border border-border dark:border-border rounded-lg hover:bg-muted hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Next
       </button>

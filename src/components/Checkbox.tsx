@@ -15,10 +15,10 @@ const Checkbox: React.FC<CheckboxProps> = ({
       <input
         type="checkbox"
         id={uniqueId}
-        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
+        className="focus:ring-primary h-4 w-4 text-primary border-border rounded"
         {...props}
       />
-      <label htmlFor={uniqueId} className="ml-2 block text-sm text-gray-900">
+      <label htmlFor={uniqueId} className="ml-2 block text-sm text-foreground">
         {label}
       </label>
     </div>

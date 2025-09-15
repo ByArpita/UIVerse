@@ -40,7 +40,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, content, isOpen, o
   };
 
   return (
-    <div className="border-b border-gray-200 dark:border-gray-700">
+    <div className="border-b border dark:border-gray-700">
       <h2>
         <button
           type="button"
@@ -48,7 +48,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, content, isOpen, o
           onKeyDown={handleKeyDown}
           aria-expanded={isOpen}
           aria-controls={`accordion-content-${title.replace(/\s+/g, '-')}`}
-          className="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800"
+          className="flex items-center justify-between w-full p-5 font-medium text-left text-textSecondary dark:text-gray-400 hover:bg-muted dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-ring dark:focus:ring-gray-800"
         >
           <span>{title}</span>
           <AccordionIcon isOpen={isOpen} />
@@ -60,7 +60,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, content, isOpen, o
         style={{ maxHeight: height }}
         className="overflow-hidden transition-max-height duration-300 ease-in-out"
       >
-        <div className="p-5 text-gray-500 dark:text-gray-400">
+        <div className="p-5 text-textSecondary dark:text-gray-400">
           {content}
         </div>
       </div>

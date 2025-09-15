@@ -17,7 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({
   className,
 }) => {
   return (
-    <nav className={`bg-gray-800 p-4 text-white ${className}`}>
+    <nav className={`bg-foreground p-4 text-background ${className}`}>
       <div className="container mx-auto flex justify-between items-center">
         <a href="/" className="text-xl font-bold">
           {brandName}
@@ -25,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({
         <ul className="flex space-x-4">
           {links.map((link) => (
             <li key={link.href}>
-              <a href={link.href} className="hover:text-gray-300">
+              <a href={link.href} className="hover:text-muted">
                 {link.label}
               </a>
             </li>

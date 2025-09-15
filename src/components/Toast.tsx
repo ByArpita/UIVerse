@@ -27,15 +27,15 @@ const Toast: React.FC<ToastProps> = ({
 
   if (!isVisible) return null;
 
-  let bgColorClass = 'bg-blue-500';
-  let textColorClass = 'text-white';
+  let bgColorClass = 'bg-primary';
+  let textColorClass = 'text-primary-foreground';
 
   switch (type) {
     case 'success':
-      bgColorClass = 'bg-green-500';
+      bgColorClass = 'bg-accent';
       break;
     case 'error':
-      bgColorClass = 'bg-red-500';
+      bgColorClass = 'bg-destructive';
       break;
     case 'warning':
       bgColorClass = 'bg-yellow-500';
@@ -43,7 +43,7 @@ const Toast: React.FC<ToastProps> = ({
       break;
     case 'info':
     default:
-      bgColorClass = 'bg-blue-500';
+      bgColorClass = 'bg-primary';
       break;
   }
 

@@ -1,114 +1,713 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useTheme } from "../context/ThemeContext"; // Import useTheme
-import ThemeSwitcher from "../components/ThemeSwitcher"; // Import ThemeSwitcher
+import React, { useState } from 'react';
+import Layout from '../components/Layout';
+import Accordion from '../components/Accordion';
+import Alert from '../components/Alert';
+import Avatar from '../components/Avatar';
+import Badge from '../components/Badge';
+import Banner from '../components/Banner';
+import Breadcrumbs from '../components/Breadcrumbs';
+import Button from '../components/Button';
+import Card from '../components/Card';
+import Carousel from '../components/Carousel';
+import Checkbox from '../components/Checkbox';
+import Chip from '../components/Chip';
+import EmptyState from '../components/EmptyState';
+import Form from '../components/Form';
+import Input from '../components/Input';
+import Modal from '../components/Modal';
+import Navbar from '../components/Navbar';
+import Pagination from '../components/Pagination';
+import ProductCard from '../components/ProductCard';
+import ProgressBar from '../components/ProgressBar';
+import RadioButton from '../components/RadioButton';
+import SidebarMenu from '../components/SidebarMenu';
+import SkeletonLoader from '../components/SkeletonLoader';
+import Spinner from '../components/Spinner';
+import Table from '../components/Table';
+import Tabs from '../components/Tabs';
+import Toast from '../components/Toast';
+import Tooltip from '../components/Tooltip';
+import "./globals.css";
 
-export default function Home() {
-  const { isDarkMode, toggleDarkMode } = useTheme(); // Use the theme context
+const components = [
+  {
+    name: 'Accordion',
+    details: {
+      description: 'A collapsible content area that allows users to expand and collapse sections of content.',
+      props: [
+        { name: 'items', type: 'AccordionItem[]', default: '[]', description: 'An array of accordion items.' },
+        { name: 'allowMultipleOpen', type: 'boolean', default: 'false', description: 'Whether multiple accordion items can be open at the same time.' },
+      ],
+      examples: [
+        {
+          title: 'Default Accordion',
+          code: '<Accordion items={[{ title: \'Accordion 1\', content: \'Content 1\' }]} />',
+          component: <Accordion items={[{ title: 'Accordion 1', content: 'Content 1' }]} />,
+        },
+        {
+          title: 'Accordion with multiple open items',
+          code: '<Accordion items={[{ title: \'Accordion 1\', content: \'Content 1\' }, { title: \'Accordion 2\', content: \'Content 2\' }]} allowMultipleOpen />',
+          component: <Accordion items={[{ title: 'Accordion 1', content: 'Content 1' }, { title: 'Accordion 2', content: 'Content 2' }]} allowMultipleOpen />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Alert',
+    details: {
+      description: 'A message to the user.',
+      props: [
+        { name: 'message', type: 'string', default: '', description: 'The message to display.' },
+        { name: 'type', type: '\'info\' | \'success\' | \'warning\' | \'error\'', default: '\'info\'', description: 'The type of alert.' },
+        { name: 'showCloseButton', type: 'boolean', default: 'false', description: 'Whether to show a close button.' },
+        { name: 'onClose', type: '() => void', default: 'undefined', description: 'A callback function to be called when the alert is closed.' },
+      ],
+      examples: [
+        {
+          title: 'Info Alert',
+          code: '<Alert message="This is an info alert."/>',
+          component: <Alert message="This is an info alert."/>,
+        },
+        {
+          title: 'Success Alert',
+          code: '<Alert message="This is a success alert." type="success"/>',
+          component: <Alert message="This is a success alert." type="success"/>,
+        },
+        {
+          title: 'Warning Alert',
+          code: '<Alert message="This is a warning alert." type="warning"/>',
+          component: <Alert message="This is a warning alert." type="warning"/>,
+        },
+        {
+          title: 'Error Alert',
+          code: '<Alert message="This is an error alert." type="error"/>',
+          component: <Alert message="This is an error alert." type="error"/>,
+        },
+        {
+          title: 'Alert with close button',
+          code: '<Alert message="This is an alert with a close button." showCloseButton/>',
+          component: <Alert message="This is an alert with a close button." showCloseButton/>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Avatar',
+    details: {
+      description: 'A user\'s profile picture or initials.',
+      props: [
+        { name: 'src', type: 'string', default: 'undefined', description: 'The source of the image.' },
+        { name: 'alt', type: 'string', default: 'Avatar', description: 'The alt text for the image.' },
+        { name: 'initials', type: 'string', default: 'undefined', description: 'The initials to display if the image fails to load.' },
+        { name: 'size', type: '\'sm\' | \'md\' | \'lg\'', default: '\'md\'', description: 'The size of the avatar.' },
+        { name: 'className', type: 'string', default: 'undefined', description: 'Additional CSS classes to apply to the component.' },
+      ],
+      examples: [
+        {
+          title: 'Default Avatar',
+          code: '<Avatar initials="JD" />',
+          component: <Avatar initials="JD" />,
+        },
+        {
+          title: 'Avatar with image',
+          code: '<Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026704d" />',
+          component: <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026704d" />,
+        },
+        {
+          title: 'Small Avatar',
+          code: '<Avatar initials="JD" size="sm" />',
+          component: <Avatar initials="JD" size="sm" />,
+        },
+        {
+          title: 'Large Avatar',
+          code: '<Avatar initials="JD" size="lg" />',
+          component: <Avatar initials="JD" size="lg" />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Badge',
+    details: {
+      description: 'A small status descriptor for an item.',
+      props: [
+        { name: 'children', type: 'React.ReactNode', default: 'undefined', description: 'The content of the badge.' },
+        { name: 'type', type: '\'default\' | \'primary\' | \'success\' | \'error\' | \'warning\'', default: '\'default\'', description: 'The type of badge.' },
+        { name: 'className', type: 'string', default: 'undefined', description: 'Additional CSS classes to apply to the component.' },
+      ],
+      examples: [
+        {
+          title: 'Default Badge',
+          code: '<Badge>Default</Badge>',
+          component: <Badge>Default</Badge>,
+        },
+        {
+          title: 'Primary Badge',
+          code: '<Badge type="primary">Primary</Badge>',
+          component: <Badge type="primary">Primary</Badge>,
+        },
+        {
+          title: 'Success Badge',
+          code: '<Badge type="success">Success</Badge>',
+          component: <Badge type="success">Success</Badge>,
+        },
+        {
+          title: 'Error Badge',
+          code: '<Badge type="error">Error</Badge>',
+          component: <Badge type="error">Error</Badge>,
+        },
+        {
+          title: 'Warning Badge',
+          code: '<Badge type="warning">Warning</Badge>',
+          component: <Badge type="warning">Warning</Badge>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Banner',
+    details: {
+      description: 'A prominent message displayed to the user.',
+      props: [
+        { name: 'message', type: 'string', default: '', description: 'The message to display.' },
+        { name: 'type', type: '\'info\' | \'success\' | \'warning\' | \'error\'', default: '\'info\'', description: 'The type of banner.' },
+        { name: 'showCloseButton', type: 'boolean', default: 'true', description: 'Whether to show a close button.' },
+        { name: 'onClose', type: '() => void', default: 'undefined', description: 'A callback function to be called when the banner is closed.' },
+      ],
+      examples: [
+        {
+          title: 'Info Banner',
+          code: '<Banner message="This is an info banner."/>',
+          component: <Banner message="This is an info banner."/>,
+        },
+        {
+          title: 'Success Banner',
+          code: '<Banner message="This is a success banner." type="success"/>',
+          component: <Banner message="This is a success banner." type="success"/>,
+        },
+        {
+          title: 'Warning Banner',
+          code: '<Banner message="This is a warning banner." type="warning"/>',
+          component: <Banner message="This is a warning banner." type="warning"/>,
+        },
+        {
+          title: 'Error Banner',
+          code: '<Banner message="This is an error banner." type="error"/>',
+          component: <Banner message="This is an error banner." type="error"/>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Breadcrumbs',
+    details: {
+      description: 'A secondary navigation scheme that reveals the user\'s location in a website or web application.',
+      props: [
+        { name: 'items', type: 'BreadcrumbItem[]', default: '[]', description: 'An array of breadcrumb items.' },
+      ],
+      examples: [
+        {
+          title: 'Default Breadcrumbs',
+          code: '<Breadcrumbs items={[{ label: \'Home\', href: \'/\' }, { label: \'Components\' }]} />',
+          component: <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Components' }]} />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Button',
+    details: {
+      description: 'A clickable element that performs an action.',
+      props: [
+        { name: 'children', type: 'React.ReactNode', default: 'undefined', description: 'The content of the button.' },
+        { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'ghost'", default: "'primary'", description: 'The variant of the button.' },
+      ],
+      examples: [
+        {
+          title: 'Primary Button',
+          code: '<Button>Primary Button</Button>',
+          component: <Button>Primary Button</Button>,
+        },
+        {
+          title: 'Secondary Button',
+          code: '<Button variant="secondary">Secondary Button</Button>',
+          component: <Button variant="secondary">Secondary Button</Button>,
+        },
+        {
+          title: 'Outline Button',
+          code: '<Button variant="outline">Outline Button</Button>',
+          component: <Button variant="outline">Outline Button</Button>,
+        },
+        {
+          title: 'Ghost Button',
+          code: '<Button variant="ghost">Ghost Button</Button>',
+          component: <Button variant="ghost">Ghost Button</Button>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Card',
+    details: {
+      description: 'A container for a piece of content.',
+      props: [
+        { name: 'children', type: 'React.ReactNode', default: 'undefined', description: 'The content of the card.' },
+        { name: 'className', type: 'string', default: 'undefined', description: 'Additional CSS classes to apply to the component.' },
+      ],
+      examples: [
+        {
+          title: 'Default Card',
+          code: '<Card>This is a card.</Card>',
+          component: <Card>This is a card.</Card>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Carousel',
+    details: {
+      description: 'A slideshow for cycling through a series of content.',
+      props: [
+        { name: 'children', type: 'React.ReactNode[]', default: '[]', description: 'An array of slides.' },
+        { name: 'autoPlay', type: 'boolean', default: 'false', description: 'Whether the carousel should autoplay.' },
+        { name: 'interval', type: 'number', default: '3000', description: 'The interval between slides in milliseconds.' },
+      ],
+      examples: [
+        {
+          title: 'Default Carousel',
+          code: '<Carousel>{[<div key={1}>Slide 1</div>, <div key={2}>Slide 2</div>]}</Carousel>',
+          component: <Carousel>{[<div key={1}>Slide 1</div>, <div key={2}>Slide 2</div>]}</Carousel>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Checkbox',
+    details: {
+      description: 'A user can select one or more options from a set.',
+      props: [
+        { name: 'label', type: 'string', default: '', description: 'The label for the checkbox.' },
+      ],
+      examples: [
+        {
+          title: 'Default Checkbox',
+          code: '<Checkbox label="Check me" />',
+          component: <Checkbox label="Check me" />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Chip',
+    details: {
+      description: 'A compact element that represents an input, attribute, or action.',
+      props: [
+        { name: 'children', type: 'React.ReactNode', default: 'undefined', description: 'The content of the chip.' },
+        { name: 'type', type: '\'default\' | \'primary\' | \'success\' | \'error\' | \'warning\'', default: '\'default\'', description: 'The type of chip.' },
+        { name: 'isSelectable', type: 'boolean', default: 'false', description: 'Whether the chip is selectable.' },
+        { name: 'isSelected', type: 'boolean', default: 'false', description: 'Whether the chip is selected.' },
+        { name: 'onSelectChange', type: '(selected: boolean) => void', default: 'undefined', description: 'A callback function to be called when the selection state of the chip changes.' },
+        { name: 'onClose', type: '() => void', default: 'undefined', description: 'A callback function to be called when the chip is closed.' },
+      ],
+      examples: [
+        {
+          title: 'Default Chip',
+          code: '<Chip>Chip</Chip>',
+          component: <Chip>Chip</Chip>,
+        },
+        {
+          title: 'Selectable Chip',
+          code: '<Chip isSelectable>Selectable Chip</Chip>',
+          component: <Chip isSelectable>Selectable Chip</Chip>,
+        },
+        {
+          title: 'Closable Chip',
+          code: '<Chip onClose={() => {}}>Closable Chip</Chip>',
+          component: <Chip onClose={() => {}}>Closable Chip</Chip>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'EmptyState',
+    details: {
+      description: 'A message to the user when there is no data to display.',
+      props: [
+        { name: 'title', type: 'string', default: '', description: 'The title of the empty state.' },
+        { name: 'description', type: 'string', default: '', description: 'The description of the empty state.' },
+        { name: 'illustration', type: 'React.ReactNode', default: 'undefined', description: 'An illustration for the empty state.' },
+        { name: 'actionButton', type: 'React.ReactNode', default: 'undefined', description: 'An action button for the empty state.' },
+      ],
+      examples: [
+        {
+          title: 'Default EmptyState',
+          code: '<EmptyState title="No results" description="No results found."/>',
+          component: <EmptyState title="No results" description="No results found."/>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Form',
+    details: {
+      description: 'A collection of input fields.',
+      props: [
+        { name: 'onSubmit', type: '(event: React.FormEvent<HTMLFormElement>) => void', default: 'undefined', description: 'A callback function to be called when the form is submitted.' },
+        { name: 'children', type: 'React.ReactNode', default: 'undefined', description: 'The content of the form.' },
+        { name: 'className', type: 'string', default: 'undefined', description: 'Additional CSS classes to apply to the component.' },
+      ],
+      examples: [
+        {
+          title: 'Default Form',
+          code: '<Form onSubmit={() => {}}><Input placeholder="Enter text"/></Form>',
+          component: <Form onSubmit={() => {}}><Input placeholder="Enter text"/></Form>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Input',
+    details: {
+      description: 'A text input field.',
+      props: [],
+      examples: [
+        {
+          title: 'Default Input',
+          code: '<Input placeholder="Enter text"/>',
+          component: <Input placeholder="Enter text"/>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Modal',
+    details: {
+      description: 'A dialog that appears on top of the main content.',
+      props: [
+        { name: 'isOpen', type: 'boolean', default: 'false', description: 'Whether the modal is open.' },
+        { name: 'onClose', type: '() => void', default: 'undefined', description: 'A callback function to be called when the modal is closed.' },
+        { name: 'children', type: 'React.ReactNode', default: 'undefined', description: 'The content of the modal.' },
+        { name: 'title', type: 'string', default: 'undefined', description: 'The title of the modal.' },
+      ],
+      examples: [
+        {
+          title: 'Default Modal',
+          code: '<Modal isOpen={false} onClose={() => {}}>This is a modal.</Modal>',
+          component: <Modal isOpen={false} onClose={() => {}}>This is a modal.</Modal>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Navbar',
+    details: {
+      description: 'A navigation bar.',
+      props: [
+        { name: 'brandName', type: 'string', default: '', description: 'The brand name to display in the navbar.' },
+        { name: 'links', type: 'NavLink[]', default: '[]', description: 'An array of navigation links.' },
+        { name: 'className', type: 'string', default: 'undefined', description: 'Additional CSS classes to apply to the component.' },
+      ],
+      examples: [
+        {
+          title: 'Default Navbar',
+          code: '<Navbar brandName="Logo" links={[{ href: \'/\\', label: 'Home\' }]} />',
+          component: <Navbar brandName="Logo" links={[{ href: '/', label: 'Home' }]} />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Pagination',
+    details: {
+      description: 'A set of links to navigate between pages.',
+      props: [
+        { name: 'currentPage', type: 'number', default: '1', description: 'The current page number.' },
+        { name: 'totalPages', type: 'number', default: '1', description: 'The total number of pages.' },
+        { name: 'onPageChange', type: '(page: number) => void', default: 'undefined', description: 'A callback function to be called when the page changes.' },
+      ],
+      examples: [
+        {
+          title: 'Default Pagination',
+          code: '<Pagination currentPage={1} totalPages={10} onPageChange={() => {}} />',
+          component: <Pagination currentPage={1} totalPages={10} onPageChange={() => {}} />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'ProductCard',
+    details: {
+      description: 'A card that displays information about a product.',
+      props: [
+        { name: 'imageSrc', type: 'string', default: '', description: 'The source of the product image.' },
+        { name: 'imageAlt', type: 'string', default: '', description: 'The alt text for the product image.' },
+        { name: 'title', type: 'string', default: '', description: 'The title of the product.' },
+        { name: 'description', type: 'string', default: '', description: 'The description of the product.' },
+        { name: 'buttonText', type: 'string', default: '', description: 'The text for the action button.' },
+        { name: 'onButtonClick', type: '() => void', default: 'undefined', description: 'A callback function to be called when the action button is clicked.' },
+      ],
+      examples: [
+        {
+          title: 'Default ProductCard',
+          code: '<ProductCard imageSrc="https://i.pravatar.cc/150?u=a042581f4e29026704d" imageAlt="Product image" title="Product" description="Description" buttonText="Add to cart" onButtonClick={() => {}} />',
+          component: <ProductCard imageSrc="https://i.pravatar.cc/150?u=a042581f4e29026704d" imageAlt="Product image" title="Product" description="Description" buttonText="Add to cart" onButtonClick={() => {}} />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'ProgressBar',
+    details: {
+      description: 'A visual indicator of the progress of an operation.',
+      props: [
+        { name: 'value', type: 'number', default: '0', description: 'The current value of the progress bar.' },
+        { name: 'max', type: 'number', default: '100', description: 'The maximum value of the progress bar.' },
+        { name: 'variant', type: '\'determinate\' | \'indeterminate\'', default: '\'determinate\'', description: 'The variant of the progress bar.' },
+        { name: 'color', type: '\'primary\' | \'secondary\' | \'success\' | \'warning\' | \'danger\'', default: '\'primary\'', description: 'The color of the progress bar.' },
+        { name: 'height', type: 'string', default: 'h-2.5\'', description: 'The height of the progress bar.' },
+        { name: 'showLabel', type: 'boolean', default: 'false', description: 'Whether to show a label with the current percentage.' },
+      ],
+      examples: [
+        {
+          title: 'Default ProgressBar',
+          code: '<ProgressBar value={50} />',
+          component: <ProgressBar value={50} />,
+        },
+        {
+          title: 'Indeterminate ProgressBar',
+          code: '<ProgressBar variant="indeterminate" />',
+          component: <ProgressBar variant="indeterminate" />,
+        },
+        {
+          title: 'ProgressBar with label',
+          code: '<ProgressBar value={50} showLabel />',
+          component: <ProgressBar value={50} showLabel />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'RadioButton',
+    details: {
+      description: 'A user can select only one option from a set.',
+      props: [
+        { name: 'label', type: 'string', default: '', description: 'The label for the radio button.' },
+      ],
+      examples: [
+        {
+          title: 'Default RadioButton',
+          code: '<RadioButton label="Select me" />',
+          component: <RadioButton label="Select me" />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'SidebarMenu',
+    details: {
+      description: 'A vertical navigation menu.',
+      props: [
+        { name: 'items', type: 'MenuItem[]', default: '[]', description: 'An array of menu items.' },
+        { name: 'isCollapsed', type: 'boolean', default: 'false', description: 'Whether the sidebar is collapsed.' },
+        { name: 'onToggleCollapse', type: '() => void', default: 'undefined', description: 'A callback function to be called when the sidebar is toggled.' },
+      ],
+      examples: [
+        {
+          title: 'Default SidebarMenu',
+          code: '<SidebarMenu items={[{ label: \'Home\' }]} isCollapsed={false} onToggleCollapse={() => {}} />',
+          component: <SidebarMenu items={[{ label: 'Home' }]} isCollapsed={false} onToggleCollapse={() => {}} />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'SkeletonLoader',
+    details: {
+      description: 'A placeholder for content that is loading.',
+      props: [
+        { name: 'width', type: 'string', default: 'w-full\'', description: 'The width of the skeleton loader.' },
+        { name: 'height', type: 'string', default: 'h-4\'', description: 'The height of the skeleton loader.' },
+        { name: 'count', type: 'number', default: '1', description: 'The number of skeleton loaders to display.' },
+        { name: 'className', type: 'string', default: 'undefined', description: 'Additional CSS classes to apply to the component.' },
+      ],
+      examples: [
+        {
+          title: 'Default SkeletonLoader',
+          code: '<SkeletonLoader />',
+          component: <SkeletonLoader />,
+        },
+        {
+          title: 'SkeletonLoader with multiple counts',
+          code: '<SkeletonLoader count={3} />',
+          component: <SkeletonLoader count={3} />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Spinner',
+    details: {
+      description: 'An animated graphic that indicates that an operation is in progress.',
+      props: [
+        { name: 'type', type: '\'dots\' | \'ring\' | \'pulse\'', default: '\'ring\'', description: 'The type of spinner.' },
+        { name: 'size', type: '\'sm\' | \'md\' | \'lg\'', default: '\'md\'', description: 'The size of the spinner.' },
+        { name: 'color', type: 'string', default: 'text-primary\'', description: 'The color of the spinner.' },
+      ],
+      examples: [
+        {
+          title: 'Ring Spinner',
+          code: '<Spinner />',
+          component: <Spinner />,
+        },
+        {
+          title: 'Dots Spinner',
+          code: '<Spinner type="dots" />',
+          component: <Spinner type="dots" />,
+        },
+        {
+          title: 'Pulse Spinner',
+          code: '<Spinner type="pulse" />',
+          component: <Spinner type="pulse" />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Table',
+    details: {
+      description: 'A set of data arranged in rows and columns.',
+      props: [
+        { name: 'columns', type: 'Column[]', default: '[]', description: 'An array of column definitions.' },
+        { name: 'data', type: 'Record<string, any>[]', default: '[]', description: 'An array of data rows.' },
+        { name: 'sortable', type: 'boolean', default: 'false', description: 'Whether the table is sortable.' },
+      ],
+      examples: [
+        {
+          title: 'Default Table',
+          code: '<Table columns={[{ key: \'name\', header: \'Name\' }]} data={[{ name: \'John Doe\' }]} />',
+          component: <Table columns={[{ key: 'name', header: 'Name' }]} data={[{ name: 'John Doe' }]} />,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Tabs',
+    details: {
+      description: 'A set of layered sections of content, known as tab panels, that are displayed one at a time.',
+      props: [
+        { name: 'tabs', type: 'TabProps[]', default: '[]', description: 'An array of tab definitions.' },
+        { name: 'defaultActiveTab', type: 'number', default: '0', description: 'The index of the tab to be active by default.' },
+      ],
+      examples: [
+        {
+          title: 'Default Tabs',
+          code: '<Tabs tabs={[{ label: \'Tab 1\', content: \'Content 1\' }]} />',
+          component: <Tabs tabs={[{ label: 'Tab 1', content: 'Content 1' }]} />,
+        },
+      ],
+    },
+  },
+  
+  {
+    name: 'Toast',
+    details: {
+      description: 'A small, temporary message that appears to the user.',
+      props: [
+        { name: 'message', type: 'string', default: '', description: 'The message to display.' },
+        { name: 'type', type: '\'success\' | \'error\' | \'warning\' | \'info\'', default: '\'info\'', description: 'The type of toast.' },
+        { name: 'duration', type: 'number', default: '3000', description: 'The duration in milliseconds to show the toast. Set to 0 for no auto-dismiss.' },
+        { name: 'onDismiss', type: '() => void', default: 'undefined', description: 'A callback function to be called when the toast is dismissed.' },
+      ],
+      examples: [
+        {
+          title: 'Info Toast',
+          code: '<Toast message="This is a toast."/>',
+          component: <Toast message="This is a toast."/>,
+        },
+      ],
+    },
+  },
+  {
+    name: 'Tooltip',
+    details: {
+      description: 'A small pop-up that displays information when the user hovers over an element.',
+      props: [
+        { name: 'children', type: 'React.ReactNode', default: 'undefined', description: 'The content to wrap the tooltip around.' },
+        { name: 'content', type: 'React.ReactNode', default: 'undefined', description: 'The content of the tooltip.' },
+        { name: 'position', type: '\'top\' | \'bottom\' | \'left\' | \'right\'', default: '\'top\'', description: 'The position of the tooltip.' },
+      ],
+      examples: [
+        {
+          title: 'Default Tooltip',
+          code: '<Tooltip content="This is a tooltip.">Hover me</Tooltip>',
+          component: <Tooltip content="This is a tooltip.">Hover me</Tooltip>,
+        },
+      ],
+    },
+  },
+];
+
+const Page = () => {
+  const [selectedComponent, setSelectedComponent] = useState(components[0]);
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      {/* Add ThemeSwitcher here */}
-      <div className="absolute top-4 right-4">
-        <ThemeSwitcher isDarkMode={isDarkMode} onToggle={toggleDarkMode} />
+    <Layout
+      sidebar={( 
+        <ul className="h-full overflow-y-auto">
+          {components.map((component) => (
+            <li key={component.name}>
+              <button
+                className="w-full text-left p-2 hover:bg-gray-700 rounded"
+                onClick={() => setSelectedComponent(component)}
+              >
+                {component.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    >
+      <div>
+        <h1 className="text-2xl font-bold mb-4">{selectedComponent.name}</h1>
+        <p className="mb-4">{selectedComponent.details.description}</p>
+
+        <h2 className="text-xl font-bold mt-8 mb-4">Props</h2>
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr>
+              <th className="border-b p-2">Name</th>
+              <th className="border-b p-2">Type</th>
+              <th className="border-b p-2">Default</th>
+              <th className="border-b p-2">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {selectedComponent.details.props.map((prop) => (
+              <tr key={prop.name}>
+                <td className="border-b p-2">{prop.name}</td>
+                <td className="border-b p-2"><code>{prop.type}</code></td>
+                <td className="border-b p-2"><code>{prop.default}</code></td>
+                <td className="border-b p-2">{prop.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h2 className="text-xl font-bold mt-8 mb-4">Examples</h2>
+        {selectedComponent.details.examples.map((example) => (
+          <div key={example.title} className="mb-8">
+            <h3 className="text-lg font-bold mb-2">{example.title}</h3>
+            <div className="border p-4 rounded mb-4">
+              {example.component}
+            </div>
+            <pre className="bg-gray-800 text-white p-4 rounded"><code>{example.code}</code></pre>
+          </div>
+        ))}
       </div>
-
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    </Layout>
   );
-}
+};
+
+export default Page;

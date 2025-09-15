@@ -52,14 +52,14 @@ const Table: React.FC<TableProps> = ({
 
   return (
     <div className="overflow-x-auto max-w-md">
-      <table className="min-w-full divide-y divide-gray-400 dark:divide-gray-600">
-        <thead className="bg-gray-50">
+      <table className="min-w-full divide-y divide-border dark:divide-border">
+        <thead className="bg-muted">
           <tr>
             {columns.map((column) => (
               <th
                 key={column.key}
                 scope="col"
-                className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${sortable ? 'cursor-pointer select-none' : ''
+                className={`px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider ${sortable ? 'cursor-pointer select-none' : ''
                   }`}
                 onClick={() => handleHeaderClick(column.key)}
               >
@@ -71,11 +71,11 @@ const Table: React.FC<TableProps> = ({
             ))}
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-background divide-y divide-border">
           {sortedData.map((row, rowIndex) => (
             <tr key={rowIndex}>
               {columns.map((column, colIndex) => (
-                <td key={colIndex} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td key={colIndex} className="px-6 py-4 whitespace-nowrap text-sm text-foreground">
                   {row[column.key]}
                 </td>
               ))}

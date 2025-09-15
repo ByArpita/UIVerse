@@ -14,10 +14,10 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   actionButton,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center p-8 text-center bg-gray-50 rounded-lg shadow-sm">
+    <div className="flex flex-col items-center justify-center p-8 text-center bg-muted rounded-lg shadow-sm">
       {illustration && <div className="mb-4">{illustration}</div>}
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-600 mb-6 max-w-md">{description}</p>
+      <h3 className="text-xl font-semibold text-foreground mb-2">{title}</h3>
+      <p className="text-muted-foreground mb-6 max-w-md">{description}</p>
       {actionButton && <div>{actionButton}</div>}
     </div>
   );

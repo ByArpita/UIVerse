@@ -13,7 +13,7 @@ const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
   count = 1,
   className,
 }) => {
-  const baseClasses = `bg-gray-200 rounded-md animate-pulse ${width} ${height} ${className}`;
+  const baseClasses = `bg-muted rounded-md animate-pulse ${width} ${height} ${className}`;
 
   if (count > 1) {
     return (

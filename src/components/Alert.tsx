@@ -28,9 +28,9 @@ const Alert: React.FC<AlertProps> = ({
 
   switch (type) {
     case 'success':
-      bgColorClass = 'bg-green-100';
-      textColorClass = 'text-green-800';
-      borderColorClass = 'border-green-400';
+      bgColorClass = 'bg-green-500';
+      textColorClass = 'text-white';
+      borderColorClass = 'border-green-500';
       break;
     case 'warning':
       bgColorClass = 'bg-yellow-100';
@@ -38,9 +38,9 @@ const Alert: React.FC<AlertProps> = ({
       borderColorClass = 'border-yellow-400';
       break;
     case 'error':
-      bgColorClass = 'bg-red-100';
-      textColorClass = 'text-red-800';
-      borderColorClass = 'border-red-400';
+      bgColorClass = 'bg-red-500';
+      textColorClass = 'text-white';
+      borderColorClass = 'border-red-500';
       break;
     case 'info':
     default:

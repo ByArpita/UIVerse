@@ -17,22 +17,22 @@ const Chip: React.FC<ChipProps> = ({
   onSelectChange,
   onClose,
 }) => {
-  let bgColorClass = 'bg-gray-100';
-  let textColorClass = 'text-gray-800';
+  let bgColorClass = 'bg-muted';
+  let textColorClass = 'text-muted-foreground';
   let hoverClass = '';
 
   switch (type) {
     case 'primary':
-      bgColorClass = 'bg-blue-100';
-      textColorClass = 'text-blue-800';
+      bgColorClass = 'bg-primary';
+      textColorClass = 'text-primary-foreground';
       break;
     case 'success':
-      bgColorClass = 'bg-green-100';
-      textColorClass = 'text-green-800';
+      bgColorClass = 'bg-accent';
+      textColorClass = 'text-accent-foreground';
       break;
     case 'error':
-      bgColorClass = 'bg-red-100';
-      textColorClass = 'text-red-800';
+      bgColorClass = 'bg-destructive';
+      textColorClass = 'text-destructive-foreground';
       break;
     case 'warning':
       bgColorClass = 'bg-yellow-100';
@@ -47,8 +47,8 @@ const Chip: React.FC<ChipProps> = ({
   if (isSelectable) {
     hoverClass = 'cursor-pointer hover:opacity-80';
     if (isSelected) {
-      bgColorClass = bgColorClass.replace('-100', '-500');
-      textColorClass = 'text-white';
+      bgColorClass = 'bg-primary-dark';
+      textColorClass = 'text-primary-foreground';
     }
   }
 

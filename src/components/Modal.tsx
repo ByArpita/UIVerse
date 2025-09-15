@@ -41,13 +41,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
 
   return createPortal(
     <div
-      className={`fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 transition-opacity duration-300 ${
+      className={`fixed inset-0 bg-foreground bg-opacity-50 flex justify-center items-center z-50 transition-opacity duration-300 ${
         isAnimating ? 'opacity-100' : 'opacity-0'
       }`}
     >
       <div
         ref={modalRef}
-        className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-auto min-h-[20vh] max-h-[80vh] overflow-y-auto"
+        className="bg-background rounded-lg shadow-xl p-6 w-full max-w-md mx-auto min-h-[20vh] max-h-[80vh] overflow-y-auto"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
@@ -56,7 +56,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
           {title && <h3 id="modal-title" className="text-lg font-semibold">{title}</h3>}
           <Button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-2xl leading-none p-0 bg-transparent shadow-none hover:bg-transparent"
+            className="text-muted-foreground hover:text-foreground text-2xl leading-none p-0 bg-transparent shadow-none hover:bg-transparent"
             aria-label="Close modal"
           >
             &times;
