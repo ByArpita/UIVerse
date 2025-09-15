@@ -10,7 +10,7 @@ const meta: Meta<typeof Carousel> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    children: { control: 'array' },
+    children: { control: false },
     autoPlay: { control: 'boolean' },
     interval: { control: 'number' },
   },
