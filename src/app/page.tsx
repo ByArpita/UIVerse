@@ -834,8 +834,108 @@ const components = [
       examples: [
         {
           title: 'Default Table',
-          code: '<Table columns={[{ key: \'name\', header: \'Name\' }]} data={[{ name: \'John Doe\' }]} />',
-          component: <Table columns={[{ key: 'name', header: 'Name' }]} data={[{ name: 'John Doe' }]} />,
+          code: `<Table 
+  columns={[
+    { key: 'id', header: 'ID' },
+    { key: 'name', header: 'Name' },
+    { key: 'age', header: 'Age' },
+    { key: 'city', header: 'City' },
+  ]}
+  data={[
+    { id: 1, name: 'John Doe', age: 30, city: 'New York' },
+    { id: 2, name: 'Jane Smith', age: 24, city: 'London' },
+    { id: 3, name: 'Peter Jones', age: 35, city: 'Paris' },
+    { id: 4, name: 'Alice Brown', age: 28, city: 'Tokyo' },
+    { id: 5, name: 'Bob White', age: 42, city: 'Berlin' },
+  ]} 
+/>`,
+          component: <Table 
+            columns={[
+              { key: 'id', header: 'ID' },
+              { key: 'name', header: 'Name' },
+              { key: 'age', header: 'Age' },
+              { key: 'city', header: 'City' },
+            ]}
+            data={[
+              { id: 1, name: 'John Doe', age: 30, city: 'New York' },
+              { id: 2, name: 'Jane Smith', age: 24, city: 'London' },
+              { id: 3, name: 'Peter Jones', age: 35, city: 'Paris' },
+              { id: 4, name: 'Alice Brown', age: 28, city: 'Tokyo' },
+              { id: 5, name: 'Bob White', age: 42, city: 'Berlin' },
+            ]} 
+          />,
+        },
+        {
+          title: 'Sortable Table',
+          code: `<Table 
+  columns={[
+    { key: 'id', header: 'ID' },
+    { key: 'name', header: 'Name' },
+    { key: 'age', header: 'Age' },
+    { key: 'city', header: 'City' },
+  ]}
+  data={[
+    { id: 1, name: 'John Doe', age: 30, city: 'New York' },
+    { id: 2, name: 'Jane Smith', age: 24, city: 'London' },
+    { id: 3, name: 'Peter Jones', age: 35, city: 'Paris' },
+    { id: 4, name: 'Alice Brown', age: 28, city: 'Tokyo' },
+    { id: 5, name: 'Bob White', age: 42, city: 'Berlin' },
+  ]}
+  sortable 
+/>`,
+          component: <Table 
+            columns={[
+              { key: 'id', header: 'ID' },
+              { key: 'name', header: 'Name' },
+              { key: 'age', header: 'Age' },
+              { key: 'city', header: 'City' },
+            ]}
+            data={[
+              { id: 1, name: 'John Doe', age: 30, city: 'New York' },
+              { id: 2, name: 'Jane Smith', age: 24, city: 'London' },
+              { id: 3, name: 'Peter Jones', age: 35, city: 'Paris' },
+              { id: 4, name: 'Alice Brown', age: 28, city: 'Tokyo' },
+              { id: 5, name: 'Bob White', age: 42, city: 'Berlin' },
+            ]}
+            sortable 
+          />,
+        },
+        {
+          title: 'Responsive Table',
+          code: `<Table 
+  columns={[
+    { key: 'id', header: 'ID' },
+    { key: 'productName', header: 'Product Name' },
+    { key: 'category', header: 'Category' },
+    { key: 'price', header: 'Price' },
+    { key: 'stock', header: 'Stock' },
+    { key: 'lastUpdated', header: 'Last Updated' },
+  ]}
+  data={[
+    { id: 1, productName: 'Laptop Pro X', category: 'Electronics', price: 1200, stock: 50, lastUpdated: '2023-01-15' },
+    { id: 2, productName: 'Mechanical Keyboard', category: 'Peripherals', price: 150, stock: 200, lastUpdated: '2023-01-10' },
+    { id: 3, productName: 'Ergonomic Mouse', category: 'Peripherals', price: 75, stock: 120, lastUpdated: '2023-01-20' },
+    { id: 4, productName: '4K Monitor 27"', category: 'Electronics', price: 450, stock: 80, lastUpdated: '2023-01-18' },
+  ]}
+  sortable 
+/>`,
+          component: <Table 
+            columns={[
+              { key: 'id', header: 'ID' },
+              { key: 'productName', header: 'Product Name' },
+              { key: 'category', header: 'Category' },
+              { key: 'price', header: 'Price' },
+              { key: 'stock', header: 'Stock' },
+              { key: 'lastUpdated', header: 'Last Updated' },
+            ]}
+            data={[
+              { id: 1, productName: 'Laptop Pro X', category: 'Electronics', price: 1200, stock: 50, lastUpdated: '2023-01-15' },
+              { id: 2, productName: 'Mechanical Keyboard', category: 'Peripherals', price: 150, stock: 200, lastUpdated: '2023-01-10' },
+              { id: 3, productName: 'Ergonomic Mouse', category: 'Peripherals', price: 75, stock: 120, lastUpdated: '2023-01-20' },
+              { id: 4, productName: '4K Monitor 27"', category: 'Electronics', price: 450, stock: 80, lastUpdated: '2023-01-18' },
+            ]}
+            sortable 
+          />,
         },
       ],
     },
@@ -851,8 +951,80 @@ const components = [
       examples: [
         {
           title: 'Default Tabs',
-          code: '<Tabs tabs={[{ label: \'Tab 1\', content: \'Content 1\' }]} />',
-          component: <Tabs tabs={[{ label: 'Tab 1', content: 'Content 1' }]} />,
+          code: `<Tabs 
+  tabs={[
+    { label: 'Tab 1', content: <p>Content for Tab 1</p> },
+    { label: 'Tab 2', content: <p>Content for Tab 2</p> },
+    { label: 'Tab 3', content: <p>Content for Tab 3</p> },
+  ]}
+/>`,
+          component: <Tabs 
+            tabs={[
+              { label: 'Tab 1', content: <p>Content for Tab 1</p> },
+              { label: 'Tab 2', content: <p>Content for Tab 2</p> },
+              { label: 'Tab 3', content: <p>Content for Tab 3</p> },
+            ]}
+          />,
+        },
+        {
+          title: 'With Default Active Tab',
+          code: `<Tabs 
+  tabs={[
+    { label: 'First Tab', content: <p>This is the content for the first tab.</p> },
+    { label: 'Second Tab', content: <p>This is the content for the second tab, which is active by default.</p> },
+    { label: 'Third Tab', content: <p>This is the content for the third tab.</p> },
+  ]}
+  defaultActiveTab={1}
+/>`,
+          component: <Tabs 
+            tabs={[
+              { label: 'First Tab', content: <p>This is the content for the first tab.</p> },
+              { label: 'Second Tab', content: <p>This is the content for the second tab, which is active by default.</p> },
+              { label: 'Third Tab', content: <p>This is the content for the third tab.</p> },
+            ]}
+            defaultActiveTab={1}
+          />,
+        },
+        {
+          title: 'With Complex Content',
+          code: `<Tabs 
+  tabs={[
+    { label: 'Profile', content: (
+      <div>
+        <h2 className="text-xl font-semibold">User Profile</h2>
+        <p>Name: John Doe</p>
+        <p>Email: john.doe@example.com</p>
+      </div>
+    ) },
+    { label: 'Settings', content: (
+      <div>
+        <h2 className="text-xl font-semibold">Application Settings</h2>
+        <label className="block mt-4">
+          <input type="checkbox" className="mr-2" /> Enable Notifications
+        </label>
+      </div>
+    ) },
+  ]}
+/>`,
+          component: <Tabs 
+            tabs={[
+              { label: 'Profile', content: (
+                <div>
+                  <h2 className="text-xl font-semibold">User Profile</h2>
+                  <p>Name: John Doe</p>
+                  <p>Email: john.doe@example.com</p>
+                </div>
+              ) },
+              { label: 'Settings', content: (
+                <div>
+                  <h2 className="text-xl font-semibold">Application Settings</h2>
+                  <label className="block mt-4">
+                    <input type="checkbox" className="mr-2" /> Enable Notifications
+                  </label>
+                </div>
+              ) },
+            ]}
+          />,
         },
       ],
     },
@@ -865,14 +1037,34 @@ const components = [
       props: [
         { name: 'message', type: 'string', default: '', description: 'The message to display.' },
         { name: 'type', type: '\'success\' | \'error\' | \'warning\' | \'info\'', default: '\'info\'', description: 'The type of toast.' },
-        { name: 'duration', type: 'number', default: '3000', description: 'The duration in milliseconds to show the toast. Set to 0 for no auto-dismiss.' },
+        { name: 'duration', type: 'number', default: '5000', description: 'The duration in milliseconds to show the toast. Set to 0 for no auto-dismiss.' },
         { name: 'onDismiss', type: '() => void', default: 'undefined', description: 'A callback function to be called when the toast is dismissed.' },
       ],
       examples: [
         {
+          title: 'Success Toast',
+          code: '<Toast message="Operation completed successfully!" type="success"/>',
+          component: <Toast message="Operation completed successfully!" type="success" />,
+        },
+        {
+          title: 'Error Toast',
+          code: '<Toast message="Failed to save data." type="error"/>',
+          component: <Toast message="Failed to save data." type="error" />,
+        },
+        {
+          title: 'Warning Toast',
+          code: '<Toast message="Please review your changes." type="warning"/>',
+          component: <Toast message="Please review your changes." type="warning" />,
+        },
+        {
           title: 'Info Toast',
-          code: '<Toast message="This is a toast."/>',
-          component: <Toast message="This is a toast." />,
+          code: '<Toast message="New update available." type="info"/>',
+          component: <Toast message="New update available." type="info" />,
+        },
+        {
+          title: 'No Auto-Dismiss Toast',
+          code: '<Toast message="This toast will not auto-dismiss." duration={0}/>',
+          component: <Toast message="This toast will not auto-dismiss." duration={0} />,
         },
       ],
     },
@@ -888,9 +1080,29 @@ const components = [
       ],
       examples: [
         {
-          title: 'Default Tooltip',
-          code: '<Tooltip content="This is a tooltip.">Hover me</Tooltip>',
-          component: <Tooltip content="This is a tooltip.">Hover me</Tooltip>,
+          title: 'Tooltip Top',
+          code: '<Tooltip content="This is a top tooltip." position="top">Hover me (Top)</Tooltip>',
+          component: <Tooltip content="This is a top tooltip." position="top">Hover me (Top)</Tooltip>,
+        },
+        {
+          title: 'Tooltip Bottom',
+          code: '<Tooltip content="This is a bottom tooltip." position="bottom">Hover me (Bottom)</Tooltip>',
+          component: <Tooltip content="This is a bottom tooltip." position="bottom">Hover me (Bottom)</Tooltip>,
+        },
+        {
+          title: 'Tooltip Left',
+          code: '<Tooltip content="This is a left tooltip." position="left">Hover me (Left)</Tooltip>',
+          component: <Tooltip content="This is a left tooltip." position="left">Hover me (Left)</Tooltip>,
+        },
+        {
+          title: 'Tooltip Right',
+          code: '<Tooltip content="This is a right tooltip." position="right">Hover me (Right)</Tooltip>',
+          component: <Tooltip content="This is a right tooltip." position="right">Hover me (Right)</Tooltip>,
+        },
+        {
+          title: 'Tooltip with Custom Content',
+          code: `<Tooltip content={<div><h3 className="font-bold">Custom Tooltip</h3><p>This tooltip has <strong>rich</strong> content.</p></div>} position="bottom"><Button>Hover for rich content</Button></Tooltip>`,
+          component: <Tooltip content={<div><h3 className="font-bold">Custom Tooltip</h3><p>This tooltip has <strong>rich</strong> content.</p></div>} position="bottom"><Button>Hover for rich content</Button></Tooltip>,
         },
       ],
     },

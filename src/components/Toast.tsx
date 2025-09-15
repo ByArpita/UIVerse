@@ -10,7 +10,7 @@ interface ToastProps {
 const Toast: React.FC<ToastProps> = ({
   message,
   type = 'info',
-  duration = 3000,
+  duration = 5000,
   onDismiss,
 }) => {
   const [isVisible, setIsVisible] = useState(true);

@@ -30,8 +30,6 @@ const meta: Meta<typeof SidebarMenu> = {
   tags: ['autodocs'],
   argTypes: {
     items: { control: 'object' },
-    isCollapsed: { control: 'boolean' },
-    onToggleCollapse: { action: 'toggleCollapse' },
   },
 };
 
@@ -40,9 +38,7 @@ type Story = StoryObj<typeof SidebarMenu>;
 
 export const Default: Story = {
   render: (args) => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
-    const handleToggle = () => setIsCollapsed(!isCollapsed);
-    return <SidebarMenu {...args} isCollapsed={isCollapsed} onToggleCollapse={handleToggle} />;
+    return <SidebarMenu {...args} />;
   },
   args: {
     items: [
@@ -55,9 +51,7 @@ export const Default: Story = {
 
 export const Collapsed: Story = {
   render: (args) => {
-    const [isCollapsed, setIsCollapsed] = useState(true);
-    const handleToggle = () => setIsCollapsed(!isCollapsed);
-    return <SidebarMenu {...args} isCollapsed={isCollapsed} onToggleCollapse={handleToggle} />;
+    return <SidebarMenu {...args} />;
   },
   args: {
     items: [
