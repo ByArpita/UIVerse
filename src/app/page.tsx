@@ -68,27 +68,27 @@ const components = [
         {
           title: 'Info Alert',
           code: '<Alert message="This is an info alert."/>',
-          component: <Alert message="This is an info alert."/>,
+          component: <Alert message="This is an info alert." />,
         },
         {
           title: 'Success Alert',
           code: '<Alert message="This is a success alert." type="success"/>',
-          component: <Alert message="This is a success alert." type="success"/>,
+          component: <Alert message="This is a success alert." type="success" />,
         },
         {
           title: 'Warning Alert',
           code: '<Alert message="This is a warning alert." type="warning"/>',
-          component: <Alert message="This is a warning alert." type="warning"/>,
+          component: <Alert message="This is a warning alert." type="warning" />,
         },
         {
           title: 'Error Alert',
           code: '<Alert message="This is an error alert." type="error"/>',
-          component: <Alert message="This is an error alert." type="error"/>,
+          component: <Alert message="This is an error alert." type="error" />,
         },
         {
           title: 'Alert with close button',
           code: '<Alert message="This is an alert with a close button." showCloseButton/>',
-          component: <Alert message="This is an alert with a close button." showCloseButton/>,
+          component: <Alert message="This is an alert with a close button." showCloseButton />,
         },
       ],
     },
@@ -180,22 +180,22 @@ const components = [
         {
           title: 'Info Banner',
           code: '<Banner message="This is an info banner."/>',
-          component: <Banner message="This is an info banner."/>,
+          component: <Banner message="This is an info banner." />,
         },
         {
           title: 'Success Banner',
           code: '<Banner message="This is a success banner." type="success"/>',
-          component: <Banner message="This is a success banner." type="success"/>,
+          component: <Banner message="This is a success banner." type="success" />,
         },
         {
           title: 'Warning Banner',
           code: '<Banner message="This is a warning banner." type="warning"/>',
-          component: <Banner message="This is a warning banner." type="warning"/>,
+          component: <Banner message="This is a warning banner." type="warning" />,
         },
         {
           title: 'Error Banner',
           code: '<Banner message="This is an error banner." type="error"/>',
-          component: <Banner message="This is an error banner." type="error"/>,
+          component: <Banner message="This is an error banner." type="error" />,
         },
       ],
     },
@@ -241,9 +241,13 @@ const components = [
           component: <Button variant="outline">Outline Button</Button>,
         },
         {
-          title: 'Ghost Button',
-          code: '<Button variant="ghost">Ghost Button</Button>',
-          component: <Button variant="ghost">Ghost Button</Button>,
+          title: 'Success Button',
+          code: '<Button variant="success">Success Button</Button>',
+          component: <Button variant="success">Success Button</Button>,
+        }, {
+          title: 'Danger Button',
+          code: '<Button variant="danger">Danger Button</Button>',
+          component: <Button variant="danger">Danger Button</Button>,
         },
       ],
     },
@@ -277,12 +281,47 @@ const components = [
       examples: [
         {
           title: 'Default Carousel',
-          code: '<Carousel>{[<div key={1}>Slide 1</div>, <div key={2}>Slide 2</div>]}</Carousel>',
-          component: <Carousel>{[<div key={1}>Slide 1</div>, <div key={2}>Slide 2</div>]}</Carousel>,
+          code: `<Carousel>{[
+          <div key={1} className="w-full h-48 bg-blue-300 flex items-center justify-center text-white text-2xl">Slide 1</div>,
+          <div key={2} className="w-full h-48 bg-green-300 flex items-center justify-center text-white text-2xl">Slide 2</div>,
+          <div key={3} className="w-full h-48 bg-red-300 flex items-center justify-center text-white text-2xl">Slide 3</div>
+          ]}</Carousel>`,
+          component: <Carousel>{[
+            <div key={1} className="w-full h-48 bg-blue-300 flex items-center justify-center text-white text-2xl">Slide 1</div>,
+            <div key={2} className="w-full h-48 bg-green-300 flex items-center justify-center text-white text-2xl">Slide 2</div>,
+            <div key={3} className="w-full h-48 bg-red-300 flex items-center justify-center text-white text-2xl">Slide 3</div>
+          ]}</Carousel>,
+        },
+        {
+          title: 'AutoPlay Carousel',
+          code: `<Carousel autoPlay>{[
+          <div key={1} className="w-full h-48 bg-blue-300 flex items-center justify-center text-white text-2xl">Slide 1</div>,
+          <div key={2} className="w-full h-48 bg-green-300 flex items-center justify-center text-white text-2xl">Slide 2</div>,
+          <div key={3} className="w-full h-48 bg-red-300 flex items-center justify-center text-white text-2xl">Slide 3</div>
+          ]}</Carousel>`,
+          component: <Carousel autoPlay={true}>{[
+            <div key={1} className="w-full h-48 bg-blue-300 flex items-center justify-center text-white text-2xl">Slide 1</div>,
+            <div key={2} className="w-full h-48 bg-green-300 flex items-center justify-center text-white text-2xl">Slide 2</div>,
+            <div key={3} className="w-full h-48 bg-red-300 flex items-center justify-center text-white text-2xl">Slide 3</div>
+          ]}</Carousel>,
+        },
+        {
+          title: 'Carousel with Images',
+          code: `<Carousel autoPlay>{[
+          <img key={1} src="https://via.placeholder.com/800x300/1" alt="Slide 1" className="w-full h-48 object-cover" />,
+          <img key={2} src="https://via.placeholder.com/800x300/2" alt="Slide 2" className="w-full h-48 object-cover" />,
+          <img key={3} src="https://via.placeholder.com/800x300/3" alt="Slide 3" className="w-full h-48 object-cover" />
+          ]}</Carousel>`,
+          component: <Carousel autoPlay={true}>{[
+            <img key={1} src="https://via.placeholder.com/800x300/1" alt="Slide 1" className="w-full h-48 object-cover" />,
+            <img key={2} src="https://via.placeholder.com/800x300/2" alt="Slide 2" className="w-full h-48 object-cover" />,
+            <img key={3} src="https://via.placeholder.com/800x300/3" alt="Slide 3" className="w-full h-48 object-cover" />
+          ]}</Carousel>,
         },
       ],
     },
   },
+
   {
     name: 'Checkbox',
     details: {
@@ -325,7 +364,7 @@ const components = [
         {
           title: 'Closable Chip',
           code: '<Chip onClose={() => {}}>Closable Chip</Chip>',
-          component: <Chip onClose={() => {}}>Closable Chip</Chip>,
+          component: <Chip onClose={() => { }}>Closable Chip</Chip>,
         },
       ],
     },
@@ -344,7 +383,7 @@ const components = [
         {
           title: 'Default EmptyState',
           code: '<EmptyState title="No results" description="No results found."/>',
-          component: <EmptyState title="No results" description="No results found."/>,
+          component: <EmptyState title="No results" description="No results found." />,
         },
       ],
     },
@@ -362,7 +401,7 @@ const components = [
         {
           title: 'Default Form',
           code: '<Form onSubmit={() => {}}><Input placeholder="Enter text"/></Form>',
-          component: <Form onSubmit={() => {}}><Input placeholder="Enter text"/></Form>,
+          component: <Form onSubmit={() => { }}><Input placeholder="Enter text" /></Form>,
         },
       ],
     },
@@ -376,7 +415,7 @@ const components = [
         {
           title: 'Default Input',
           code: '<Input placeholder="Enter text"/>',
-          component: <Input placeholder="Enter text"/>,
+          component: <Input placeholder="Enter text" />,
         },
       ],
     },
@@ -395,7 +434,7 @@ const components = [
         {
           title: 'Default Modal',
           code: '<Modal isOpen={false} onClose={() => {}}>This is a modal.</Modal>',
-          component: <Modal isOpen={false} onClose={() => {}}>This is a modal.</Modal>,
+          component: <Modal isOpen={false} onClose={() => { }}>This is a modal.</Modal>,
         },
       ],
     },
@@ -431,7 +470,7 @@ const components = [
         {
           title: 'Default Pagination',
           code: '<Pagination currentPage={1} totalPages={10} onPageChange={() => {}} />',
-          component: <Pagination currentPage={1} totalPages={10} onPageChange={() => {}} />,
+          component: <Pagination currentPage={1} totalPages={10} onPageChange={() => { }} />,
         },
       ],
     },
@@ -452,7 +491,7 @@ const components = [
         {
           title: 'Default ProductCard',
           code: '<ProductCard imageSrc="https://i.pravatar.cc/150?u=a042581f4e29026704d" imageAlt="Product image" title="Product" description="Description" buttonText="Add to cart" onButtonClick={() => {}} />',
-          component: <ProductCard imageSrc="https://i.pravatar.cc/150?u=a042581f4e29026704d" imageAlt="Product image" title="Product" description="Description" buttonText="Add to cart" onButtonClick={() => {}} />,
+          component: <ProductCard imageSrc="https://i.pravatar.cc/150?u=a042581f4e29026704d" imageAlt="Product image" title="Product" description="Description" buttonText="Add to cart" onButtonClick={() => { }} />,
         },
       ],
     },
@@ -517,7 +556,7 @@ const components = [
         {
           title: 'Default SidebarMenu',
           code: '<SidebarMenu items={[{ label: \'Home\' }]} isCollapsed={false} onToggleCollapse={() => {}} />',
-          component: <SidebarMenu items={[{ label: 'Home' }]} isCollapsed={false} onToggleCollapse={() => {}} />,
+          component: <SidebarMenu items={[{ label: 'Home' }]} isCollapsed={false} onToggleCollapse={() => { }} />,
         },
       ],
     },
@@ -609,7 +648,7 @@ const components = [
       ],
     },
   },
-  
+
   {
     name: 'Toast',
     details: {
@@ -624,7 +663,7 @@ const components = [
         {
           title: 'Info Toast',
           code: '<Toast message="This is a toast."/>',
-          component: <Toast message="This is a toast."/>,
+          component: <Toast message="This is a toast." />,
         },
       ],
     },
@@ -654,7 +693,7 @@ const Page = () => {
 
   return (
     <Layout
-      sidebar={( 
+      sidebar={(
         <ul className="h-full overflow-y-auto">
           {components.map((component) => (
             <li key={component.name}>

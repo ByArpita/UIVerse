@@ -22,9 +22,9 @@ type Story = StoryObj<typeof Carousel>;
 export const Default: Story = {
   args: {
     children: [
-      <div className="w-96 h-48 bg-blue-300 flex items-center justify-center text-white text-2xl">Slide 1</div>,
-      <div className="w-96 h-48 bg-green-300 flex items-center justify-center text-white text-2xl">Slide 2</div>,
-      <div className="w-96 h-48 bg-red-300 flex items-center justify-center text-white text-2xl">Slide 3</div>,
+      <div className="w-full h-48 bg-blue-300 flex items-center justify-center text-white text-2xl">Slide 1</div>,
+      <div className="w-full h-48 bg-green-300 flex items-center justify-center text-white text-2xl">Slide 2</div>,
+      <div className="w-full h-48 bg-red-300 flex items-center justify-center text-white text-2xl">Slide 3</div>,
     ],
   },
 };
@@ -32,9 +32,9 @@ export const Default: Story = {
 export const AutoPlaying: Story = {
   args: {
     children: [
-      <div className="w-96 h-48 bg-blue-300 flex items-center justify-center text-white text-2xl">Slide A</div>,
-      <div className="w-96 h-48 bg-green-300 flex items-center justify-center text-white text-2xl">Slide B</div>,
-      <div className="w-96 h-48 bg-red-300 flex items-center justify-center text-white text-2xl">Slide C</div>,
+      <div className="w-full h-48 bg-blue-300 flex items-center justify-center text-white text-2xl">Slide A</div>,
+      <div className="w-full h-48 bg-green-300 flex items-center justify-center text-white text-2xl">Slide B</div>,
+      <div className="w-full h-48 bg-red-300 flex items-center justify-center text-white text-2xl">Slide C</div>,
     ],
     autoPlay: true,
     interval: 2000,
